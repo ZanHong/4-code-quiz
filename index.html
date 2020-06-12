@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Quiz!</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand mr-md-auto text-center col-md-auto" href="#">View Highscore</a>
+
+        <div class="my-3 my-md-auto pr-0 text-center col-md-auto font-weight-bold time">
+            <div class="timer"></div>
+        </div>
+    </nav>
+
+    <div class="container" id="container-div" style="max-width: 50%;">
+        <div class="start text-center pt-5 mt-5">
+            <div>
+                <h2>Welcome to Code Quiz!</h2>
+                <p>Try to answer as many questions within the time limit. Keep in mind that each incorrect answers will penalize your time by 10 seconds</p>
+            </div>
+            <button type="button" class="btn btn-primary btn-lg" id="start-button">Start</button>
+        </div>
+
+        <div class="text-center pt-5 mt-5" id="quiz">
+            <div id="questions"></div>
+            <div class="btn-group-vertical" id="choices">    
+                <button type="button" class="choice btn btn-success my-1" id="A" onclick="isCorrect('A')">A</button>
+                <button type="button" class="choice btn btn-success my-1" id="B" onclick="isCorrect('B')">B</button>
+                <button type="button" class="choice btn btn-success my-1" id="C" onclick="isCorrect('C')">C</button>
+                <button type="button" class="choice btn btn-success my-1" id="D" onclick="isCorrect('D')">D</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="finalScore"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
