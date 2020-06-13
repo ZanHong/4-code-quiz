@@ -135,7 +135,12 @@ function homePage() {
     homeEl.appendChild(homeTitle);
     homeEl.appendChild(homeIntro);
     homeEl.appendChild(startBtn);
-    startBtn.addEventListener("click", startQuiz);
+    startBtn.addEventListener("click", function(event) {
+        startQuiz();
+        homeEl.removeChild(homeTitle);
+        homeEl.removeChild(homeIntro);
+        homeEl.removeChild(startBtn);
+    });
 }
 
 function startQuiz() {
@@ -251,6 +256,13 @@ function finalScoreRender() {
     scoreHeadEl.appendChild(userInput);
     scoreHeadEl.appendChild(submitBtn);
     submitBtn.addEventListener("click", function() {
+        
+        scoreHeadEl.removeChild(scoreHeader);
+        scoreHeadEl.removeChild(userScore);
+        scoreHeadEl.removeChild(label);
+        scoreHeadEl.removeChild(userInput);
+        scoreHeadEl.removeChild(submitBtn);
+        displayHighscore();
         var scoreText = userInput.value;
 
         if (scoreText === "") {
@@ -274,12 +286,15 @@ function finalScoreRender() {
         scoreListEl.appendChild(li);
             
         i++;
-        displayHighscore();
+
     })
 }
 
 // Function to display all the highscores
 function displayHighscore() {
+    // startEl.style.display = "none";
+    // timeEl.style.display = "none";
+    // quizEl.style.display = "none";
     finalScoreEl.style.display = "none";
     highscoreEl.style.display = "block";
     var highscoreHeader = document.createElement("h2");
@@ -296,6 +311,9 @@ function displayHighscore() {
 
     backBtn.addEventListener("click", function() {
         highscoreEl.style.display = "none";
+        highscores.removeChild(highscoreHeader);
+        highscoreBtn.removeChild(backBtn);
+        highscoreBtn.removeChild(clearBtn);
         homePage();
     });
     clearBtn.addEventListener("click", function () {
@@ -305,4 +323,4 @@ function displayHighscore() {
 }
 
 
-viewHighscore.addEventListener("click", homePage);
+viewHighscore.addEventListener("click", displayHighscore);
