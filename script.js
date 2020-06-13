@@ -335,4 +335,9 @@ function displayHighscore() {
 }
 
 
-viewHighscore.addEventListener("click", displayHighscore);
+viewHighscore.addEventListener("click", function() {
+    homeEl.textContent = "";
+    highscores.textContent = "";
+    highscoreBtn.textContent = "";
+    displayHighscore();
+});
