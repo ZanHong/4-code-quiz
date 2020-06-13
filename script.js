@@ -135,6 +135,8 @@ function homePage() {
     homeEl.appendChild(homeTitle);
     homeEl.appendChild(homeIntro);
     homeEl.appendChild(startBtn);
+
+    // Button to start the quiz!
     startBtn.addEventListener("click", function(event) {
         startQuiz();
         homeEl.removeChild(homeTitle);
@@ -198,6 +200,7 @@ function isCorrect() {
     comment.textContent = "Correct!";
     comment.setAttribute("style", "color: red; font-weight: bold");
     quizEl.appendChild(comment);
+    // Correct comment disappear after 0.5s
     var commentInterval = setInterval(function () {
         var commentTime = 1;
         commentTime--;
@@ -214,6 +217,7 @@ function isWrong() {
     comment.textContent = "Incorrect!";
     comment.setAttribute("style", "color: red; font-weight: bold");
     quizEl.appendChild(comment);
+    // Incorrect comment disappear after 0.5s
     var commentInterval = setInterval(function () {
         var commentTime = 1;
         commentTime--;
@@ -255,6 +259,8 @@ function finalScoreRender() {
     scoreHeadEl.appendChild(label);
     scoreHeadEl.appendChild(userInput);
     scoreHeadEl.appendChild(submitBtn);
+
+    // Button to submit score
     submitBtn.addEventListener("click", function() {
         
         scoreHeadEl.removeChild(scoreHeader);
@@ -269,6 +275,10 @@ function finalScoreRender() {
             return;
         }
 
+        // Local storage
+        // Tried using the moethod on Activity 28 as a reference here. I managed to store the initials in a string but wasn't able to do so for the score
+        // Decided to use the method on Activity 23 but it's only able to store 1 input. At least it's storing something
+        // Any feedback or guidance would be much appreciated here!
         var score = {
             initials: userInput.value,
             time: secondsLeft.toString(),
@@ -292,9 +302,6 @@ function finalScoreRender() {
 
 // Function to display all the highscores
 function displayHighscore() {
-    // startEl.style.display = "none";
-    // timeEl.style.display = "none";
-    // quizEl.style.display = "none";
     finalScoreEl.style.display = "none";
     highscoreEl.style.display = "block";
     var highscoreHeader = document.createElement("h2");
@@ -309,6 +316,7 @@ function displayHighscore() {
     highscoreBtn.appendChild(backBtn);
     highscoreBtn.appendChild(clearBtn);
 
+    // Button to go back to the home page
     backBtn.addEventListener("click", function() {
         highscoreEl.style.display = "none";
         highscores.removeChild(highscoreHeader);
@@ -316,6 +324,8 @@ function displayHighscore() {
         highscoreBtn.removeChild(clearBtn);
         homePage();
     });
+
+    // Button to clear the highscore list
     clearBtn.addEventListener("click", function () {
         var myli = document.querySelector("li");
         myli.remove();
