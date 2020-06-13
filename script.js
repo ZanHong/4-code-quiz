@@ -190,6 +190,7 @@ function checkAnswer(userAnswer) {
             isWrong();
         }
     } else {
+        currentIndex = 0;
         finalScoreRender();
     }
 }
@@ -234,7 +235,7 @@ function finalScoreRender() {
     quizEl.style.display = "none";
     finalScoreEl.style.display = "block";
     clearInterval(timeInterval);
-
+    currentIndex = 0;
 
     if (secondsLeft < 0) {
         secondsLeft = 0;
@@ -322,6 +323,7 @@ function displayHighscore() {
         highscores.removeChild(highscoreHeader);
         highscoreBtn.removeChild(backBtn);
         highscoreBtn.removeChild(clearBtn);
+        secondsLeft = 60;
         homePage();
     });
 
