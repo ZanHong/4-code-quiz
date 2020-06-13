@@ -1,6 +1,9 @@
-var timeEl = document.querySelector(".timer");
-var startEl = document.querySelector(".start");
-var startBtn = document.querySelector("#start-button");
+// Declaring all variables
+var viewHighscore = document.querySelector("#view-highscore");
+var homeEl = document.querySelector("#home-page");
+var timeEl = document.querySelector("#timer");
+var startEl = document.querySelector("#start");
+var containerDiv = document.querySelector("#container-div");
 var quizEl = document.querySelector("#quiz");
 var questionEl = document.querySelector("#questions")
 var choiceEl = document.querySelector("#choices");
@@ -9,86 +12,91 @@ var choiceB = document.querySelector("#B");
 var choiceC = document.querySelector("#C");
 var choiceD = document.querySelector("#D");
 var finalScoreEl = document.querySelector("#finalScore");
-
+var scoreHeadEl = document.querySelector("#scoreHead");
+var highscoreEl = document.querySelector("#highscoreEl");
+var highscores = document.querySelector("#highscores");
+var scoreListEl = document.querySelector("#score-list");
+var highscoreBtn = document.querySelector("#highscoreBtn");
+// Array of questions to display
 var questionArr = [
     {
         question : "What does HTML stands for?",
-        choiceA : "Home Took Markup Language",
-        choiceB : "Hyper Text Markup Language",
-        choiceC : "Hyperlinks and Text Markup Language",
-        choiceD : "Hyper Text Makeup Language",
+        choiceA : "A. Home Took Markup Language",
+        choiceB : "B. Hyper Text Markup Language",
+        choiceC : "C. Hyperlinks and Text Markup Language",
+        choiceD : "D. Hyper Text Makeup Language",
         answer :  "B"
     }, 
     {
         question : "Choose the correct HTML element for the largest heading:",
-        choiceA : "<head>",
-        choiceB : "<h1>",
-        choiceC : "<heading>",
-        choiceD : "<h6>",
+        choiceA : "A. <head>",
+        choiceB : "B. <h1>",
+        choiceC : "C. <heading>",
+        choiceD : "D. <h6>",
         answer :  "B"
     },
     {   
         question : "What is the correct HTML element for inserting a line break?",
-        choiceA : "<br>",
-        choiceB : "<lb>",
-        choiceC : "<break>",
-        choiceD : "<p>",
+        choiceA : "A. <br>",
+        choiceB : "B. <lb>",
+        choiceC : "C. <break>",
+        choiceD : "D. <p>",
         answer :  "A"
     },
     {   
         question : "Which of these elements are all <table> elements?",
-        choiceA : "<table><head><tfoot>",
-        choiceB : "<table><tr><tt>",
-        choiceC : "<table><tr><td>",
-        choiceD : "<thead><body><tr>",
+        choiceA : "A. <table><head><tfoot>",
+        choiceB : "B. <table><tr><tt>",
+        choiceC : "C. <table><tr><td>",
+        choiceD : "D. <thead><body><tr>",
         answer :  "C"
     },
     {   
         question : "What does CSS stand for?",
-        choiceA : "Creative Style Sheets",
-        choiceB : "Computer Style Sheets",
-        choiceC : "Colorfull Style Sheets",
-        choiceD : "Cascading Style Sheets",
+        choiceA : "A. Creative Style Sheets",
+        choiceB : "B. Computer Style Sheets",
+        choiceC : "C. Colorfull Style Sheets",
+        choiceD : "D. Cascading Style Sheets",
         answer :  "D"
     },
     {   
         question : "Where in an HTML document is the correct place to refer to an external style sheet??",
-        choiceA : "In the <body> section",
-        choiceB : "At the end of the document",
-        choiceC : "In the <head> section",
-        choiceD : "In the <style> section",
+        choiceA : "A. In the <body> section",
+        choiceB : "B. At the end of the document",
+        choiceC : "C. In the <head> section",
+        choiceD : "D. In the <style> section",
         answer :  "C"
     },
     {   
         question : "Which HTML tag is used to define an internal style sheet?",
-        choiceA : "<style>",
-        choiceB : "<script>",
-        choiceC : "<css>",
-        choiceD : "<body>",
+        choiceA : "A. <style>",
+        choiceB : "B. <script>",
+        choiceC : "C. <css>",
+        choiceD : "D. <body>",
         answer :  "A"
     },
     {   
         question : "Inside which HTML element do we put the JavaScript??",
-        choiceA : "<javascipt>",
-        choiceB : "<scripting>",
-        choiceC : "<js>",
-        choiceD : "<script>",
+        choiceA : "A. <javascipt>",
+        choiceB : "B. <scripting>",
+        choiceC : "C. <js>",
+        choiceD : "D. <script>",
         answer :  "D"
     },
     {   
         question : "How do you create a function in JavaScript?",
-        choiceA : "function myFunction()",
-        choiceB : "function = myFunction()",
-        choiceC : "function: myFunction()",
-        choiceD : "function - myFunction()",
+        choiceA : "A. function myFunction()",
+        choiceB : "B. function = myFunction()",
+        choiceC : "C. function: myFunction()",
+        choiceD : "D. function - myFunction()",
         answer :  "A"
     },
     {   
         question : "How do you call a function named 'myFunction'?",
-        choiceA : "call function myFunction",
-        choiceB : "myFunction()",
-        choiceC : "call myFunction()",
-        choiceD : "myFunction[]",
+        choiceA : "A. call function myFunction",
+        choiceB : "B. myFunction()",
+        choiceC : "C. call myFunction()",
+        choiceD : "D. myFunction[]",
         answer :  "B"
     },
 ]
@@ -96,10 +104,39 @@ var questionArr = [
 var secondsLeft = 60;
 var lastQuestionIndex = questionArr.length - 1;
 var currentIndex = 0;
+var timeInterval;
 
-startEl.setAttribute("style", "display: block");
-quizEl.setAttribute("style", "display: none");
-finalScoreEl.setAttribute("style", "display: none");
+
+// Setting attributes
+containerDiv.setAttribute("style", "max-width: 70%; margin-top: 100px; text-align: center; margin-left: auto; margin-right: auto");
+timeEl.setAttribute("style", "display: none");
+quizEl.setAttribute("style", "display: none; max-width: 70%; margin-top: 100px; text-align: center; margin-left: auto; margin-right: auto");
+finalScoreEl.setAttribute("style", "display: none; max-width: 70%; margin-top: 100px; margin-left: auto; margin-right: auto");
+scoreHeadEl.setAttribute("style", "text-align: center");
+highscoreEl.setAttribute("style", "display: none; max-width: 70%; margin-top: 100px; margin-left: auto; margin-right: auto");
+highscores.setAttribute("style", "text-align: center");
+scoreListEl.setAttribute("style", "text-align: center; list-style-type: none");
+highscoreBtn.setAttribute("style", "text-align: center");
+
+
+homePage();
+
+// Functions:
+// Function to start the quiz when user clicks the start button
+function homePage() {
+    startEl.setAttribute("style", "display: block");
+    var homeTitle = document.createElement("h2");
+    var homeIntro = document.createElement("p");
+    var startBtn = document.createElement("button");
+    homeTitle.textContent = "Welcome to Code Quiz!";
+    homeIntro.textContent = "Try to answer as many questions within the time limit. Keep in mind that each incorrect answers will penalize your time by 10 seconds!";
+    startBtn.textContent = "Start Quiz!";
+    startBtn.setAttribute("style", "background-color: black; color: white; border: none; border-radius: 4px; padding: 7px 30px");
+    homeEl.appendChild(homeTitle);
+    homeEl.appendChild(homeIntro);
+    homeEl.appendChild(startBtn);
+    startBtn.addEventListener("click", startQuiz);
+}
 
 function startQuiz() {
     startEl.style.display = "none";
@@ -108,6 +145,7 @@ function startQuiz() {
     displayTimer();
 }
 
+// Function that renders the questions after the start button or answer buttons are clicked
 function renderQuestions() {
     var q = questionArr[currentIndex];
     questionEl.innerHTML = "<h3><strong>Question " + parseInt(currentIndex+1) + "/10 <br>" + q.question + "</strong></h3>";
@@ -117,50 +155,154 @@ function renderQuestions() {
     choiceD.textContent = q.choiceD;
 }
 
+// Displays the timer when the start button is clicked
 function displayTimer() {
-    var timeInterval = setInterval(function () {
+    timeEl.style.display = "block";
+    timeInterval = setInterval(function () {
         secondsLeft--;
         timeEl.textContent = "Time remaining: " + secondsLeft + "s";
         if (secondsLeft < 1) {
             timeEl.textContent = "Time's up!"
+            secondsLeft = 0;
             clearInterval(timeInterval);
         }
     }, 1000);
 }
 
-function isCorrect(userAnswer) {
+// Function to determine the conditions based on the user's answer
+function checkAnswer(userAnswer) {
     if (secondsLeft > 0 && currentIndex < lastQuestionIndex) {
         if (questionArr[currentIndex].answer == userAnswer) {
             currentIndex++;
             renderQuestions(); 
+            isCorrect();
         } else {
             currentIndex++;
             secondsLeft -= 10;
             renderQuestions();
-            var comment = document.createElement("h4");
-            comment.textContent = "Incorrect!";
-            comment.setAttribute("style", "color: red; font-weight: bold");
-            quizEl.appendChild(comment);
-            var incorrectInterval = setInterval(function () {
-                var incorrentTime = 1;
-                incorrentTime--;
-                if (incorrentTime < 1) {
-                    comment.textContent = "";
-                    clearInterval(incorrectInterval);
-                }
-            }, 1000);
-                
+            isWrong();
         }
     } else {
-        clearInterval(timeInterval);
         finalScoreRender();
     }
 }
 
-function finalScoreRender() {
-    quizEl.style.display = "none";
-    finalScoreEl.style.display = "block";
-    
+// Notifies the user when the answer is correct
+function isCorrect() {
+    var comment = document.createElement("h4");
+    comment.textContent = "Correct!";
+    comment.setAttribute("style", "color: red; font-weight: bold");
+    quizEl.appendChild(comment);
+    var commentInterval = setInterval(function () {
+        var commentTime = 1;
+        commentTime--;
+        if (commentTime < 1) {
+            comment.textContent = "";
+            clearInterval(commentInterval);
+        }
+    }, 500);
 }
 
-startBtn.addEventListener("click", startQuiz);
+// Notifies the user when the answer is wrong
+function isWrong() {
+    var comment = document.createElement("h4");
+    comment.textContent = "Incorrect!";
+    comment.setAttribute("style", "color: red; font-weight: bold");
+    quizEl.appendChild(comment);
+    var commentInterval = setInterval(function () {
+        var commentTime = 1;
+        commentTime--;
+        if (commentTime < 1) {
+            comment.textContent = "";
+            clearInterval(commentInterval);
+        }
+    }, 500);
+}
+
+// Function that displays the quiz summary and an input to store highscores
+function finalScoreRender() {
+    timeEl.style.display = "none"
+    quizEl.style.display = "none";
+    finalScoreEl.style.display = "block";
+    clearInterval(timeInterval);
+
+
+    if (secondsLeft < 0) {
+        secondsLeft = 0;
+    }
+
+    var scoreHeader = document.createElement("h2");
+    var userScore = document.createElement("p");
+    var label = document.createElement("LABEL");
+    var userInput = document.createElement("INPUT");
+    var submitBtn = document.createElement("button");
+    userInput.type = "text";
+    userInput.id = "user-input";
+    userInput.name = "user-input";
+    submitBtn.id = "submit-button";
+    scoreHeader.textContent = "All done!";
+    userScore.textContent = "Your final score is " + secondsLeft;
+    label.textContent = "Enter initials: ";
+    submitBtn.textContent = "Submit";
+    submitBtn.setAttribute("style", "background-color: black; color: white; border: none; border-radius: 4px; padding: 7px 30px; margin-left: 10px");
+    scoreHeadEl.appendChild(scoreHeader);
+    scoreHeadEl.appendChild(userScore);
+    scoreHeadEl.appendChild(label);
+    scoreHeadEl.appendChild(userInput);
+    scoreHeadEl.appendChild(submitBtn);
+    submitBtn.addEventListener("click", function() {
+        var scoreText = userInput.value;
+
+        if (scoreText === "") {
+            return;
+        }
+
+        var score = {
+            initials: userInput.value,
+            time: secondsLeft.toString(),
+        };
+        
+        userInput.value = "";
+
+        localStorage.setItem("scores", JSON.stringify(score));
+        var storedScores = JSON.parse(localStorage.getItem("scores"));
+        var i = 1;
+        scoreListEl.innerHTML = "";
+        var li = document.createElement("li");
+        li.textContent = i + ". " + storedScores.initials + " - " + storedScores.time;
+        li.setAttribute("style", "font-weight: bold")
+        scoreListEl.appendChild(li);
+            
+        i++;
+        displayHighscore();
+    })
+}
+
+// Function to display all the highscores
+function displayHighscore() {
+    finalScoreEl.style.display = "none";
+    highscoreEl.style.display = "block";
+    var highscoreHeader = document.createElement("h2");
+    var backBtn = document.createElement("button");
+    var clearBtn = document.createElement("button");
+    highscoreHeader.textContent = "Highscores";
+    backBtn.textContent = "Go Back";
+    clearBtn.textContent = "Clear Highscores";
+    backBtn.setAttribute("style", "background-color: black; color: white; border: none; border-radius: 4px; padding: 7px 30px; margin-left: 10px");
+    clearBtn.setAttribute("style", "background-color: black; color: white; border: none; border-radius: 4px; padding: 7px 30px; margin-left: 10px");
+    highscores.appendChild(highscoreHeader);
+    highscoreBtn.appendChild(backBtn);
+    highscoreBtn.appendChild(clearBtn);
+
+    backBtn.addEventListener("click", function() {
+        highscoreEl.style.display = "none";
+        homePage();
+    });
+    clearBtn.addEventListener("click", function () {
+        var myli = document.querySelector("li");
+        myli.remove();
+    });
+}
+
+
+viewHighscore.addEventListener("click", homePage);

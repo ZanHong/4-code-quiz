@@ -10,34 +10,39 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand mr-md-auto text-center col-md-auto" href="#">View Highscore</a>
+        <button class="navbar-brand mr-md-auto text-center col-md-auto border border-light bg-light" id="view-highscore">View Highscore</button>
 
         <div class="my-3 my-md-auto pr-0 text-center col-md-auto font-weight-bold time">
-            <div class="timer"></div>
+            <div id="timer"></div>
         </div>
     </nav>
 
-    <div class="container" id="container-div" style="max-width: 50%;">
-        <div class="start text-center pt-5 mt-5">
-            <div>
-                <h2>Welcome to Code Quiz!</h2>
-                <p>Try to answer as many questions within the time limit. Keep in mind that each incorrect answers will penalize your time by 10 seconds</p>
-            </div>
-            <button type="button" class="btn btn-primary btn-lg" id="start-button">Start</button>
+    <div id="container-div">
+        <div id="start">
+            <div id="home-page"></div>
         </div>
 
-        <div class="text-center pt-5 mt-5" id="quiz">
+        <div id="quiz">
             <div id="questions"></div>
             <div class="btn-group-vertical" id="choices">    
-                <button type="button" class="choice btn btn-success my-1" id="A" onclick="isCorrect('A')">A</button>
-                <button type="button" class="choice btn btn-success my-1" id="B" onclick="isCorrect('B')">B</button>
-                <button type="button" class="choice btn btn-success my-1" id="C" onclick="isCorrect('C')">C</button>
-                <button type="button" class="choice btn btn-success my-1" id="D" onclick="isCorrect('D')">D</button>
+                <button type="button" class="choice btn btn-dark my-1" id="A" onclick="checkAnswer('A')">A</button>
+                <button type="button" class="choice btn btn-dark my-1" id="B" onclick="checkAnswer('B')">B</button>
+                <button type="button" class="choice btn btn-dark my-1" id="C" onclick="checkAnswer('C')">C</button>
+                <button type="button" class="choice btn btn-dark my-1" id="D" onclick="checkAnswer('D')">D</button>
             </div>
         </div>
     </div>
 
-    <div id="finalScore"></div>
+
+    <div id="finalScore">
+        <div id="scoreHead"></div>
+    </div>
+
+    <div id="highscoreEl">
+        <div id="highscores"></div>
+        <ul id="score-list"></ul>
+        <div id="highscoreBtn"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>
